@@ -17,14 +17,14 @@ import { useDispatch } from 'react-redux'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 
 export default function DashProfile() {
-	const { currentUser, error, loading } = useSelector(state => state.user)
+	const { currentUser, loading } = useSelector(state => state.user)
 	const [imageFile, setImageFile] = useState(null)
 	const [imageFileUrl, setImageFileUrl] = useState(null)
 	const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null)
 	const [imageFileUploadError, setImageFileUploadError] = useState(null)
 	const [imageFileUploading, setImageFileUploading] = useState(false)
-	const [updateUserSuccess, setUpdateUserSuccess] = useState(null)
-	const [updateUserError, setUpdateUserError] = useState(null)
+	const [success, setSuccess] = useState(null)
+	const [error, setError] = useState(null)
 	const [showModal, setShowModal] = useState(false)
 	const [formData, setFormData] = useState({})
 	const filePickerRef = useRef()
@@ -69,7 +69,6 @@ export default function DashProfile() {
 					setImageFileUrl(downloadURL)
 					setFormData({ ...formData, profilePicture: downloadURL })
 					setImageFileUploading(false)
-					
 				})
 			}
 		)
@@ -81,14 +80,14 @@ export default function DashProfile() {
 
 	const handleSubmit = async e => {
 		e.preventDefault()
-		setUpdateUserError(null)
-		setUpdateUserSuccess(null)
+		setError(null)
+		setSuccess(null)
 		if (Object.keys(formData).length === 0) {
-			setUpdateUserError('Nie wprowadzono żadnych zmian')
+			setError('Nie wprowadzono żadnych zmian')
 			return
 		}
 		if (imageFileUploading) {
-			setUpdateUserError('Poczekaj na załadowanie obrazu')
+			setError('Poczekaj na załadowanie obrazu')
 			return
 		}
 		try {
@@ -103,14 +102,20 @@ export default function DashProfile() {
 			const data = await res.json()
 			if (!res.ok) {
 				dispatch(updateFailure(data.message))
-				setUpdateUserError(data.message)
+				setError(data.message)
+				setTimeout(() => {
+					setError(null)
+				}, 4000)
 			} else {
 				dispatch(updateSuccess(data))
-				setUpdateUserSuccess('Profil użytkownika został pomyślnie zaktualizowany')
+				setSuccess('Profil użytkownika został pomyślnie zaktualizowany')
+				setTimeout(() => {
+					setSuccess(null)
+				}, 4000)
 			}
 		} catch (error) {
 			dispatch(updateFailure(error.message))
-			setUpdateUserError(error.message)
+			setError(error.message)
 		}
 	}
 	const handleDeleteUser = async () => {
@@ -167,6 +172,11 @@ export default function DashProfile() {
 					/>
 				</div>
 				{imageFileUploadError && <Alert color='failure'>{imageFileUploadError}</Alert>}
+				<p className='text-md font-body'>Dane konta</p>
+				<span className='text-lime-500'>{currentUser.email}</span>
+				<span className='text-lime-500'>{currentUser.username}</span>
+
+				<p className='text-md font-body'>Zmień nazwę użytkownika oraz hasło</p>
 
 				<TextInput
 					type='text'
@@ -177,24 +187,23 @@ export default function DashProfile() {
 				/>
 				<TextInput type='password' id='password' placeholder='Hasło' onChange={handleChange} />
 
-				<Button type='submit' gradientDuoTone='purpleToBlue' outline  onClick={() => setImageFileUploadProgress(null)} disabled={loading || imageFileUploading}>
+				<Button
+					type='submit'
+					gradientDuoTone='purpleToBlue'
+					outline
+					onClick={() => setImageFileUploadProgress(null)}
+					disabled={loading || imageFileUploading}>
 					{loading ? 'Ładowanie' : 'Aktualizuj profil'}
 				</Button>
-				
 			</form>
 			<div className='flex justify-between mt-5'>
 				<span onClick={() => setShowModal(true)} className='cursor-pointer text-red-500 relative top-4'>
 					Usuń konto
 				</span>
 			</div>
-			{updateUserSuccess && (
+			{success && (
 				<Alert color='success' className='mt-5'>
-					{updateUserSuccess}
-				</Alert>
-			)}
-			{updateUserError && (
-				<Alert color='failure' className='mt-5'>
-					{updateUserError}
+					{success}
 				</Alert>
 			)}
 			{error && (

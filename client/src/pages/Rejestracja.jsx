@@ -18,9 +18,6 @@ export default function Rejestracja() {
 			return setError('Wypełnij wszystkie pola')
 		}
 		try {
-			// setTimeout(() => {
-			// 	setLoading(false)
-			// }, 4000)
 			setError(null)
 
 			const res = await fetch('/api/auth/rejestracja', {

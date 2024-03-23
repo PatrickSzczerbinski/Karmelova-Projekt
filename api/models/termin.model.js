@@ -11,9 +11,9 @@ const terminSchema = new mongoose.Schema(
 			default: true,
 		},
 		accepted: {
-            type: Boolean,
-            default: false,
-        },
+			type: Boolean,
+			default: false,
+		},
 		username: {
 			type: String,
 			required: true,
@@ -31,6 +31,10 @@ const terminSchema = new mongoose.Schema(
 		},
 		offerId: {
 			type: String,
+		},
+		userId: {
+			type: mongoose.Schema.Types.ObjectId, // Referencja do identyfikatora użytkownika
+			ref: 'User', // Odwołanie do modelu użytkownika
 		},
 	},
 	{ timestamps: true }

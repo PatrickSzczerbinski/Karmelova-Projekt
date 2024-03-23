@@ -9,7 +9,14 @@ export const rezerwujTermin = async (req, res, next) => {
 		if (!username || !date || !menuId || !offerId) {
 			return next(errorHandler(400, 'Proszę wybrać datę z wolnym terminem'))
 		}
-		const reservationsCount = await Termin.countDocuments({ username })
+		const userInfo = await User.findOne({ username })
+		if (!userInfo) {
+			return next(errorHandler(400, 'Nie znaleziono użytkownika'))
+		}
+		const userId = userInfo._id
+
+		// Sprawdź, ile rezerwacji ma użytkownik
+		const reservationsCount = await Termin.countDocuments({ userId })
 		const maxReservations = 5
 		if (reservationsCount >= maxReservations) {
 			return res.status(400).json({
@@ -17,18 +24,16 @@ export const rezerwujTermin = async (req, res, next) => {
 				message: `Użytkownik ${username} już zarezerwował maksymalną ilość terminów (${maxReservations}).`,
 			})
 		}
-		// Sprawdź, czy użytkownik już ma rezerwację w tym dniu
-		const existingReservationForUserAndDate = await Termin.findOne({
-			date,
-			// username,
-		})
-		if (existingReservationForUserAndDate) {
+
+		// Sprawdź, czy na wybraną datę już jest rezerwacja
+		const existingReservationForDate = await Termin.findOne({ date })
+		if (existingReservationForDate) {
 			return res.status(400).json({
 				success: false,
 				message: 'Inny użytkownik już ma rezerwację na tę datę.',
 			})
 		}
-		const userInfo = await User.findOne({ username })
+
 		// Stwórz nową rezerwację
 		const newReservation = new Termin({
 			date,
@@ -39,8 +44,9 @@ export const rezerwujTermin = async (req, res, next) => {
 			profilePicture: userInfo.profilePicture,
 			menuId,
 			offerId,
+			userId,
 		})
-		await newReservation.save() // Zapis rezerwacji w bazie
+		await newReservation.save() // Zapisz rezerwację w bazie
 		res.status(200).json({
 			success: true,
 			message: 'Rezerwacja zakończona sukcesem.',
