@@ -19,7 +19,7 @@ export default function DashReserv() {
 				const data = await res.json()
 				if (res.ok) {
 					setTerminy(data.terminy)
-					if (data.terminy.length < 10) {
+					if (data.terminy.length < 9) {
 						setShowMore(false)
 					}
 				}
@@ -40,7 +40,7 @@ export default function DashReserv() {
 			const data = await res.json()
 			if (res.ok) {
 				setTerminy(prev => [...prev, ...data.terminy])
-				if (data.terminy.length < 10) {
+				if (data.terminy.length < 9) {
 					setShowMore(false)
 				}
 			}

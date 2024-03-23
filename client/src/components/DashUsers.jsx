@@ -20,7 +20,7 @@ export default function DashUsers() {
 				const data = await res.json()
 				if (res.ok) {
 					setUsers(data.uzytkownicy)
-					if (data.uzytkownicy.length < 10) {
+					if (data.uzytkownicy.length < 9) {
 						setShowMore(false)
 					}
 				}

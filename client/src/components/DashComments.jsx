@@ -18,7 +18,7 @@ export default function DashComments() {
 				const data = await res.json()
 				if (res.ok) {
 					setComments(data.comments)
-					if (data.comments.length < 10) {
+					if (data.comments.length < 9) {
 						setShowMore(false)
 					}
 				}
@@ -41,7 +41,7 @@ export default function DashComments() {
 			const data = await res.json()
 			if (res.ok) {
 				setComments(prev => [...prev, ...data.comments])
-				if (data.komentarze.length < 10) {
+				if (data.komentarze.length < 9) {
 					setShowMore(false)
 				}
 			}

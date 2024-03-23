@@ -175,13 +175,6 @@ export default function DashProfile() {
 					defaultValue={currentUser.username}
 					onChange={handleChange}
 				/>
-				<TextInput
-					type='email'
-					id='email'
-					placeholder='E-mail'
-					defaultValue={currentUser.email}
-					onChange={handleChange}
-				/>
 				<TextInput type='password' id='password' placeholder='Hasło' onChange={handleChange} />
 
 				<Button type='submit' gradientDuoTone='purpleToBlue' outline  onClick={() => setImageFileUploadProgress(null)} disabled={loading || imageFileUploading}>

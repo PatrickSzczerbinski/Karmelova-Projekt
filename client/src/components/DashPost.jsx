@@ -21,7 +21,7 @@ export default function DashPost() {
 				const data = await res.json()
 				if (res.ok) {
 					setUserPosts(data.posts)
-					if (data.posts.length < 10) {
+					if (data.posts.length < 9) {
 						setShowMore(false)
 					}
 				}

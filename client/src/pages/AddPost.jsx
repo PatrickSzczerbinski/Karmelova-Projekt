@@ -62,31 +62,32 @@ export default function AddPost() {
 		}
 		return result
 	}
-	
+
 	const handleSubmit = async e => {
-		e.preventDefault()
-		try {
-			const res = await fetch('/api/post/create', {
-				method: 'POST',
-				headers: {
-					'Content-type': 'application/json',
-				},
-				body: JSON.stringify(formData),
-			})
-			const data = await res.json()
-			if (!res.ok) {
-				setPublishError(data.message)
-				return
-			}
-			if (res.ok) {
-				setPublishError(null)
-				navigate(`/post/${data.slug}`)
-			}
-		} catch (error) {
-			setPublishError('Coś poszło nie tak')
-			console.log(error)
-		}
-	}
+        e.preventDefault();
+        try {
+            await handleUploadImage(); // Dodanie wywołania funkcji przesyłającej obraz
+            const res = await fetch('/api/post/create', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                setPublishError(data.message);
+                return;
+            }
+            if (res.ok) {
+                setPublishError(null);
+                navigate(`/post/${data.slug}`);
+            }
+        } catch (error) {
+            setPublishError('Coś poszło nie tak');
+            console.log(error);
+        }
+    };
 
 	return (
 		<div className='p-3 max-w-3xl mx-auto min-h-screen'>
