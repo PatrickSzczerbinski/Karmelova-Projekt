@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.font-body {
+	font-family: 'Marhey', sans-serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+}
+
+body {
+	height: 100vh;
+}
+
+.ql-editor {
+	font-size: 1.2 rem;
+}
+
+.post-content p {
+	margin-bottom: 0.5rem;
+}
+
+.post-content h1 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	font-family: sans-serif;
+	margin: 1.5rem 0;
+}
+
+.dark .post-content a {
+	color: green;
+}
+
+.text-uppercase:first-letter {
+	text-transform: uppercase;
+}
+
+.galeria-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.zdjecie-container {
+	border: 1px solid #ddd;
+	padding: 10px;
+}
+
+.zdjecie-container img {
+	max-width: 100%;
+	max-height: 200px;
+	height: auto;
+}
