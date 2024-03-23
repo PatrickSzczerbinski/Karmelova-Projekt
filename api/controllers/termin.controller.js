@@ -119,7 +119,12 @@ export const getZarezerwowaneTerminyUser = async (req, res, next) => {
 			ostatniMiesiacTerminy,
 		})
 	} catch (error) {
-		next(error)
+		console.error('Błąd podczas rezerwacji:', error)
+		res.status(500).json({
+			success: false,
+			statusCode: 500,
+			message: `Wewnętrzny błąd serwera podczas rezerwacji. Szczegóły: ${error.message}`,
+		})
 	}
 }
 

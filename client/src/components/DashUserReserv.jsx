@@ -1,4 +1,4 @@
-import { Table } from 'flowbite-react'
+import { Alert, Table } from 'flowbite-react'
 import { useEffect, useState } from 'react'
 import { FaCheck, FaTimes } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 export default function DashReserv() {
 	const { currentUser } = useSelector(state => state.user)
 	const [terminy, setTerminy] = useState([])
+	const [errorMessage, setErrorMessage] = useState(null)
 
 	useEffect(() => {
 		const fetchTerminy = async () => {
@@ -13,12 +14,13 @@ export default function DashReserv() {
 				if (!currentUser || !currentUser.username) {
 					throw new Error('Brak nazwy użytkownika')
 				}
-				const response = await fetch(`/api/kalendarz/zarezerwowaneusera?username=${currentUser.username}`)
-				if (response.ok) {
-					const data = await response.json()
+				const res = await fetch(`/api/kalendarz/zarezerwowaneusera?username=${currentUser.username}`)
+				const data = await res.json()
+				if (res.ok) {
 					setTerminy(data.terminy)
-				} else {
-					throw new Error('Błąd pobierania terminów użytkownika')
+				}
+				if (!res.ok) {
+					setErrorMessage(data.message)
 				}
 			} catch (error) {
 				console.log(error.message)
@@ -59,6 +61,14 @@ export default function DashReserv() {
 					</Table.Body>
 				</Table>
 			)}
+			<div className='max-w-lg mx-auto p-3 w-full'>
+				{errorMessage && (
+					<Alert color='failure' className='m-2'>
+						{errorMessage}
+					</Alert>
+				)}
+			</div>
 		</div>
+		
 	)
 }

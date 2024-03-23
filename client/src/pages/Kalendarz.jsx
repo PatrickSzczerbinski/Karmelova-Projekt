@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react'
 import {
 	format,
@@ -23,17 +22,12 @@ import Offer from './Offer.jsx'
 
 export default function Calendar() {
 	const { currentUser } = useSelector(state => state.user)
-	const [terminy, setTerminy] = useState([])
-	const [loading, setLoading] = useState(true)
 	const [updateUserSuccess, setUpdateUserSuccess] = useState(null)
 	const [updateUserError, setUpdateUserError] = useState(null)
 	const [currentDate, setCurrentDate] = useState(new Date())
+	// eslint-disable-next-line no-unused-vars
 	const [selectedDate, setSelectedDate] = useState(null)
-	const [selectedMenu, setSelectedMenu] = useState(null)
-	const [selectedOffer, setSelectedOffer] = useState(null)
 	const [selectedDateForReservation, setSelectedDateForReservation] = useState(null)
-	const [zarezerwowaneTerminy, setZarezerwowaneTerminy] = useState([])
-	const [reservationSuccessMessage, setReservationSuccessMessage] = useState({})
 	const [formData, setFormData] = useState({})
 	const nextMonth = () => setCurrentDate(addMonths(currentDate, 1))
 	const prevMonth = () => setCurrentDate(subMonths(currentDate, 1))
