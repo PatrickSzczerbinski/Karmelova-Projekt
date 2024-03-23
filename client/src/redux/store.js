@@ -7,20 +7,20 @@ import persistStore from 'redux-persist/es/persistStore'
 import themeReducer from './theme/themeSlice'
 // Kombinacja reducerów związanych z użytkownikiem i motywem
 const rootReducer = combineReducers({
-	user: userReducer,// Reducer związany z użytkownikiem
-	theme: themeReducer,// Reducer związany z motywem
+	user: userReducer, // Reducer związany z użytkownikiem
+	theme: themeReducer, // Reducer związany z motywem
 })
 // Konfiguracja persistConfig dla redux-persist, definicja kluczowego magazynu (storage) i wersji
 const persistConfig = {
-	key: 'root', // Klucz identyfikujący dane w magazynie
-	storage, // Wybrany magazyn
-	version: 1, // Numer wersji dla obsługi zmian formatu danych w magazynie
+	key: 'root',
+	storage,
+	version: 1,
 }
 // Utworzenie persistedReducer z użyciem persistReducer i wcześniej zdefiniowanego rootReducer
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 // Konfiguracja głównego magazynu za pomocą configureStore z Redux Toolkit
 export const store = configureStore({
-	reducer: persistedReducer,// Użycie persistedReducer jako głównego reducera
+	reducer: persistedReducer, // Użycie persistedReducer jako głównego reducera
 	middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }), // Wyłączenie sprawdzania serializowalności dla redux-persist
 })
 // Utworzenie i eksport persistora za pomocą persistStore z redux-persist

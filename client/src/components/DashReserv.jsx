@@ -56,7 +56,6 @@ export default function DashReserv() {
 			})
 			const data = await res.json()
 			if (res.ok) {
-				// Zaktualizuj lokalnie stan, aby odzwierciedlić zmiany
 				setTerminy(prev => prev.map(termin => (termin._id === terminId ? { ...termin, accepted: true } : termin)))
 			} else {
 				console.log(data.message)
@@ -141,7 +140,6 @@ export default function DashReserv() {
 							)}
 						</Table.Body>
 					</Table>
-
 					{showMore && (
 						<div className='flex justify-center items-center my-4'>
 							<Button gradientDuoTone='purpleToBlue' outline onClick={handleShowMore} className='text-sm '>

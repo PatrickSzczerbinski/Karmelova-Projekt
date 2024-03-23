@@ -75,7 +75,7 @@ export default function Calendar() {
 				body: JSON.stringify({
 					date: selectedDateForReservation,
 					username: user.username,
-					userId: user._id, // Dodaj identyfikator użytkownika
+					userId: user._id,
 					accepted: false,
 					isReserved: true,
 					menuId: menu.id.toString(),

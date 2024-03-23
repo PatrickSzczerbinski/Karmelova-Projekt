@@ -15,10 +15,8 @@ export default function OAuth() {
 	const navigate = useNavigate()
 	// Obsługa kliknięcia przycisku Google - logowanie za pomocą konta Google
 	const handleGoogleClick = async () => {
-		// Utworzenie autentykacji Google
+		// Autentykacja Google
 		const provider = new GoogleAuthProvider()
-		// Ustawienie niestandardowych parametrów, tutaj prompt: 'select_account' oznacza,
-		// że użytkownik będzie zawsze proszony o wybór konta Google przy logowaniu
 		provider.setCustomParameters({ prompt: 'select_account' })
 		try {
 			// Przejście do strony logowania Google i oczekiwanie na wyniki

@@ -25,7 +25,6 @@ export const getObraz = async (req, res, next) => {
 		const totalImages = await Image.countDocuments()
 		const now = new Date()
 		const oneMonthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate())
-
 		res.status(200).json({
 			obrazy,
 			totalImages,

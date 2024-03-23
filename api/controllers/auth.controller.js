@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken'
 import { errorHandler } from '../utils/error.js'
 
 export const rejestracja = async (req, res, next) => {
-	// Pobiera dane z żądania
 	const { username, email, password } = req.body 
 
 	if (!username || !email || !password || username === '' || email === '' || password === '') {
@@ -32,7 +31,7 @@ export const rejestracja = async (req, res, next) => {
 		return next(errorHandler(400, 'Taki użytkownik już istnieje'))
 	}
 
-	// Hasz na hasło za pomocą bcryptjs
+	//Hasz na hasło za pomocą bcryptjs
 	const hashedPassword = bcryptjs.hashSync(password, 10)
 	const newUser = new User({
 		username,

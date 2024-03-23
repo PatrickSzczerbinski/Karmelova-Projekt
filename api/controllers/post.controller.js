@@ -8,7 +8,6 @@ export const create = async (req, res, next) => {
 	if (!req.body.title || !req.body.content) {
 		return next(errorHandler(400, 'Wypełnij wszystkie pola'))
 	}
-
 	const slug = req.body.title
 		.split(' ')
 		.join('-')
@@ -16,7 +15,6 @@ export const create = async (req, res, next) => {
 		.replace(/[^a-zA-Z0-9-]/g, '')
 
 	try {
-		// Sprawdza, czy istnieje już post o takim tytule lub slugu
 		const existingPostTitle = await Post.findOne({ title: req.body.title })
 		const existingPostSlug = await Post.findOne({ slug: slug })
 
@@ -26,13 +24,11 @@ export const create = async (req, res, next) => {
 		if (existingPostSlug) {
 			return next(errorHandler(400, 'Taki tytuł postu już istnieje'))
 		}
-
 		const newPost = new Post({
 			...req.body,
 			slug,
 			userId: req.user.id,
 		})
-
 		const savedPost = await newPost.save()
 		res.status(201).json(savedPost)
 	} catch (error) {

@@ -33,8 +33,8 @@ const terminSchema = new mongoose.Schema(
 			type: String,
 		},
 		userId: {
-			type: mongoose.Schema.Types.ObjectId, // Referencja do identyfikatora użytkownika
-			ref: 'User', // Odwołanie do modelu użytkownika
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User', 
 		},
 	},
 	{ timestamps: true }

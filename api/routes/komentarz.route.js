@@ -5,7 +5,7 @@ import {
   deleteComment,
   editComment,
   getPostComments,
-  getcomments,
+  getComments,
   likeComment,
 } from '../controllers/komentarz.controller.js';
 
@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post('/create', verifyToken, createComment);
 router.get('/getPostComments/:postId', getPostComments);// Pobieranie komentarzy dla danego posta
-router.get('/getcomments', verifyToken, getcomments);
+router.get('/getcomments', verifyToken, getComments);
 router.put('/likeComment/:commentId', verifyToken, likeComment);
 router.put('/editComment/:commentId', verifyToken, editComment);
 router.delete('/deleteComment/:commentId', verifyToken, deleteComment);

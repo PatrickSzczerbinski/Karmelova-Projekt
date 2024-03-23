@@ -66,7 +66,7 @@ export default function AddPost() {
 	const handleSubmit = async e => {
         e.preventDefault();
         try {
-            await handleUploadImage(); // Dodanie wywołania funkcji przesyłającej obraz
+            await handleUploadImage();
             const res = await fetch('/api/post/create', {
                 method: 'POST',
                 headers: {

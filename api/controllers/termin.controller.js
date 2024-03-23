@@ -2,7 +2,7 @@ import { errorHandler } from '../utils/error.js'
 import Termin from '../models/termin.model.js'
 import User from '../models/user.model.js'
 import mongoose from 'mongoose'
-// Kontroler do tworzenia rezerwacji terminu
+
 export const rezerwujTermin = async (req, res, next) => {
 	try {
 		const { date, username, menuId, offerId } = req.body
@@ -14,8 +14,7 @@ export const rezerwujTermin = async (req, res, next) => {
 			return next(errorHandler(400, 'Nie znaleziono użytkownika'))
 		}
 		const userId = userInfo._id
-
-		// Sprawdź, ile rezerwacji ma użytkownik
+		// Max rezerwacji 5
 		const reservationsCount = await Termin.countDocuments({ userId })
 		const maxReservations = 5
 		if (reservationsCount >= maxReservations) {
@@ -24,7 +23,6 @@ export const rezerwujTermin = async (req, res, next) => {
 				message: `Użytkownik ${username} już zarezerwował maksymalną ilość terminów (${maxReservations}).`,
 			})
 		}
-
 		// Sprawdź, czy na wybraną datę już jest rezerwacja
 		const existingReservationForDate = await Termin.findOne({ date })
 		if (existingReservationForDate) {
@@ -33,8 +31,7 @@ export const rezerwujTermin = async (req, res, next) => {
 				message: 'Inny użytkownik już ma rezerwację na tę datę.',
 			})
 		}
-
-		// Stwórz nową rezerwację
+		// Nowa rezerwacja
 		const newReservation = new Termin({
 			date,
 			isReserved: true,
@@ -46,7 +43,7 @@ export const rezerwujTermin = async (req, res, next) => {
 			offerId,
 			userId,
 		})
-		await newReservation.save() // Zapisz rezerwację w bazie
+		await newReservation.save() // Zapis rezerwacji w bazie
 		res.status(200).json({
 			success: true,
 			message: 'Rezerwacja zakończona sukcesem.',
@@ -70,7 +67,7 @@ export const sprawdzTermin = async (req, res, next) => {
 		res.status(500).json({ message: 'Wewnętrzny błąd serwera' })
 	}
 }
-// Kontroler do pobierania wszystkich terminów
+
 export const getZarezerwowaneTerminy = async (req, res, next) => {
 	try {
 		const startIndex = parseInt(req.query.startIndex) || 0

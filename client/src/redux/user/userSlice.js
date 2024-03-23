@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 // Początkowy stan dla slice związanego z użytkownikiem
 const initialState = {
   currentUser: null, // Aktualnie zalogowany użytkownik
-  error: null,// Błąd, jeśli wystąpił
+  error: null,
   loading: false,// Flaga informująca o trwającym procesie ładowania
 };
 //Utworzenie "slice" stanu dla użytkownika

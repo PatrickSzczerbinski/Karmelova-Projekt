@@ -77,7 +77,7 @@ export const editComment = async (req, res, next) => {
 	}
 }
 
-export const getcomments = async (req, res, next) => {
+export const getComments = async (req, res, next) => {
 	if (!req.user.isAdmin) return next(errorHandler(403, 'Nie możesz pobrać wszystkich komentarzy'))
 	try {
 		const startIndex = parseInt(req.query.startIndex) || 0
