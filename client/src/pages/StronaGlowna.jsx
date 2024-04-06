@@ -22,14 +22,13 @@ export default function StronaGlowna() {
 	return (
 		<div className=''>
 			<div className='h-screen relative '>
-				<div className='bg-cover bg-center h-full' style={{ backgroundImage: `url(${coupleImage})` }}>
+				<div className='bg-cover h-full' style={{ backgroundImage: `url(${coupleImage})` }}>
 					<div className='absolute inset-0 bg-black opacity-50'></div>
 					<div className='absolute inset-0 flex items-center justify-center text-white'>
 						<div className='flex flex-col items-center justify-center'>
-							<h1 className='text-5xl font-bold italic md:text-6xl '>Karmelova</h1>
-							<p className='text-lg italic mb-4 md:text-2xl font-body'>Z nami zrobisz wymarzone wesele</p>
+							<h1 className='text-4xl font-bold italic md:text-6xl '>Karmelova</h1>
+							<p className='text-md italic mb-4 md:text-2xl font-body'>Z nami zrobisz wymarzone wesele</p>
 							<p className='text-xs m-2 lg:text-lg font-body'>Zaloguj się i zarezerwuj termin już teraz</p>
-
 							{currentUser ? (
 								<Link to='/kalendarz'>
 									<Button gradientDuoTone='purpleToBlue' outline>
