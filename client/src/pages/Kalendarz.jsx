@@ -94,6 +94,9 @@ export default function Calendar() {
 				setReservedDates(updatedReservedDates)
 				localStorage.setItem('reservedDates', JSON.stringify(updatedReservedDates))
 				setUpdateUserSuccess('Termin został przesłany do akceptacji')
+				setTimeout(() => {
+					window.location.reload()
+				}, 3000)
 			}
 		} catch (error) {
 			setUpdateUserError('Coś poszło nie tak')

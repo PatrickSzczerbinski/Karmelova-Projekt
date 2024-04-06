@@ -21,8 +21,8 @@ export default function StronaGlowna() {
 
 	return (
 		<div className=''>
-			<div className='h-screen relative '>
-				<div className='bg-cover h-full' style={{ backgroundImage: `url(${coupleImage})` }}>
+			<div className='relative '>
+				<div className='bg-cover h-screen' style={{ backgroundImage: `url(${coupleImage})` }}>
 					<div className='absolute inset-0 bg-black opacity-50'></div>
 					<div className='absolute inset-0 flex items-center justify-center text-white'>
 						<div className='flex flex-col items-center justify-center'>

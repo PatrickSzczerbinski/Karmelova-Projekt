@@ -138,7 +138,9 @@ export default function DashProfile() {
 
 	return (
 		<div className='max-w-lg mx-auto p-3 w-full'>
-			<h1 className='my-7 text-center font-bold text-3xl'>Profil użytkownika</h1>
+			<div className='my-7 text-center font-bold text-3xl'>
+				{currentUser.isAdmin ? <span style={{ color: 'Gold' }}>Profil administratora</span> : 'Profil użytkownika'}
+			</div>
 			<form onSubmit={handleSubmit} className='flex flex-col gap-6 '>
 				<input type='file' accept='image/*' onChange={handleImageChange} ref={filePickerRef} hidden />
 				<div
@@ -172,11 +174,11 @@ export default function DashProfile() {
 					/>
 				</div>
 				{imageFileUploadError && <Alert color='failure'>{imageFileUploadError}</Alert>}
-				<p className='text-md font-body'>Dane konta</p>
+				<p className='text-md font-body'>Dane konta:</p>
 				<span className='text-lime-500'>{currentUser.email}</span>
 				<span className='text-lime-500'>{currentUser.username}</span>
 
-				<p className='text-md font-body'>Zmień nazwę użytkownika oraz hasło</p>
+				<p className='text-md font-body'>Zmień nazwę użytkownika lub hasło:</p>
 
 				<TextInput
 					type='text'
@@ -196,11 +198,13 @@ export default function DashProfile() {
 					{loading ? 'Ładowanie' : 'Aktualizuj profil'}
 				</Button>
 			</form>
-			<div className='flex justify-between mt-5'>
-				<span onClick={() => setShowModal(true)} className='cursor-pointer text-red-500 relative top-4'>
-					Usuń konto
-				</span>
-			</div>
+			{!currentUser.isAdmin && (
+				<div className='flex justify-between mt-5'>
+					<span onClick={() => setShowModal(true)} className='cursor-pointer text-red-500 relative top-4'>
+						Usuń konto
+					</span>
+				</div>
+			)}
 			{success && (
 				<Alert color='success' className='mt-5'>
 					{success}
