@@ -30,7 +30,6 @@ export const rejestracja = async (req, res, next) => {
 	if (existingUser) {
 		return next(errorHandler(400, 'Taki użytkownik już istnieje'))
 	}
-
 	//Hasz na hasło za pomocą bcryptjs
 	const hashedPassword = bcryptjs.hashSync(password, 10)
 	const newUser = new User({
@@ -38,10 +37,18 @@ export const rejestracja = async (req, res, next) => {
 		email,
 		password: hashedPassword,
 	})
+	const token = jwt.sign({ id: newUser._id, isAdmin: newUser.isAdmin }, process.env.JWT_SECRET)
 	try {
 		// Zapis nowego usera w bazie
 		await newUser.save()
-		res.json('Rejestracja pomyślna')
+		res.json({
+			msg: "Rejestracja pomyślna",
+			token,
+			newUser: {
+				...newUser._doc,
+				password: "",
+			  },
+		  });
 	} catch (error) {
 		next(error)
 	}
@@ -67,13 +74,15 @@ export const logowanie = async (req, res, next) => {
 		const token = jwt.sign({ id: validUser._id, isAdmin: validUser.isAdmin }, process.env.JWT_SECRET)
 		// Usuwa hasło z obiektu użytkownika przed wysłaniem odpowiedzi
 		const { password: pass, ...rest } = validUser._doc
-		// Ustawia ciasteczko z Access Tokenem
-		res
-			.status(200)
-			.cookie('access_token', token, {
-				httpOnly: true,
-			})
-			.json(rest)
+		
+		res.json({
+			msg: "Logowanie pomyślne!",
+			token,
+			validUser: {
+			  ...validUser._doc,
+			  password: "",
+			},
+		  });
 	} catch (error) {
 		next(error)
 	}
