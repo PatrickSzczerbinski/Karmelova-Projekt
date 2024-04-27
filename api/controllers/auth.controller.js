@@ -75,14 +75,28 @@ export const logowanie = async (req, res, next) => {
 		// Usuwa hasło z obiektu użytkownika przed wysłaniem odpowiedzi
 		const { password: pass, ...rest } = validUser._doc
 		
-		res.json({
-			msg: "Logowanie pomyślne!",
-			token,
-			validUser: {
-			  ...validUser._doc,
-			  password: "",
-			},
-		  });
+	// 	res
+    // .status(200)
+    // .cookie('access_token', token, {
+    //   httpOnly: true,
+    // })
+    // .json({
+    //   msg: "Logowanie pomyślne!",
+    //   token,
+    //   validUser: {
+    //     ...validUser._doc,
+    //     password: "",
+    //   },
+    // });
+	res
+	.status(200)
+	.cookie('access_token', token, {
+	  httpOnly: true,
+	})
+	.json({
+		msg: "Logowanie pomyślne!",
+		...validUser._doc,
+	});
 	} catch (error) {
 		next(error)
 	}

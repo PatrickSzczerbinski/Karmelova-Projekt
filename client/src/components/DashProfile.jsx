@@ -42,6 +42,8 @@ export default function DashProfile() {
 		}
 	}, [imageFile])
 
+console.log('currentUser:', currentUser);
+
 	const uploadImage = async () => {
 		setImageFileUploading(true)
 		setImageFileUploadError(null)

@@ -31,8 +31,8 @@ export default function Calendar() {
 	const [formData, setFormData] = useState({})
 	const nextMonth = () => setCurrentDate(addMonths(currentDate, 1))
 	const prevMonth = () => setCurrentDate(subMonths(currentDate, 1))
-	const storedReservedDates = localStorage.getItem('reservedDates')
-	const initialReservedDates = storedReservedDates ? JSON.parse(storedReservedDates) : []
+	const storedReservedDates = localStorage.getItem('reservedDates');
+	const initialReservedDates = (storedReservedDates && storedReservedDates !== "undefined") ? JSON.parse(storedReservedDates) : [];
 	const [reservedDates, setReservedDates] = useState(initialReservedDates)
 	const [isChecked, setIsChecked] = useState(false)
 
