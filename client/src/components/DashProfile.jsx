@@ -201,8 +201,8 @@ console.log('currentUser:', currentUser);
 				</Button>
 			</form>
 			{!currentUser.isAdmin && (
-				<div className='flex justify-between mt-5'>
-					<span onClick={() => setShowModal(true)} className='cursor-pointer text-red-500 relative top-4'>
+				<div className='flex justify-between m-5'>
+					<span onClick={() => setShowModal(true)} className='cursor-pointer text-red-500 relative top-4 '>
 						Usuń konto
 					</span>
 				</div>

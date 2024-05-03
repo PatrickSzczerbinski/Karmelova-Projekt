@@ -1,15 +1,15 @@
 export default function Regulamin() {
 	return (
 		<div className='max-w-4xl mx-auto px-4 py-8'>
-			<h1 className=' text-center text-3xl font-bold mb-8'>Regulamin Rezerwacji Sali Weselnej</h1>
+			<h1 className=' text-center text-3xl font-bold mb-8'>Regulamin Rezerwacji Sali Weselnej Karmelova</h1>
 
 			<div className='mb-8'>
 				<h2 className='text-xl font-semibold mb-2'>1. Warunki Ogólne:</h2>
 				<p className='mb-2'>
 					1.1. Niniejszy regulamin określa zasady rezerwacji oraz korzystania z sali weselnej znajdującej się pod
-					adresem [adres] (dalej zwanej „Salą”).
+					adresem Goworówek 123 04-323 Goworowo sala bankietowa Karmelova.
 				</p>
-				<p className='mb-2'>1.2. Rezerwacja sali jest możliwa wyłącznie poprzez zawarcie umowy z właścicielem Salą.</p>
+				<p className='mb-2'>1.2. Rezerwacja jest możliwa wyłącznie poprzez zawarcie umowy z właścicielem Sali.</p>
 				<p>
 					1.3. Właściciel zastrzega sobie prawo do zmiany niniejszego regulaminu w dowolnym momencie. Zmiany wchodzą w
 					życie od daty ich opublikowania na stronie internetowej lub w formie pisemnej.

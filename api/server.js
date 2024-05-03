@@ -15,7 +15,6 @@ import sprawdzTerminRoutes from './routes/termin.route.js'
 import commentRoutes from './routes/komentarz.route.js'
 
 dotenv.config()
-
 mongoose
 	.connect(process.env.MONGO)
 	.then(() => {
@@ -24,15 +23,12 @@ mongoose
 	.catch(err => {
 		console.log(err)
 	})
-
-const __dirname = path.resolve() // Ustawianie zmiennej __dirname na aktualną ścieżkę katalogu głównego projektu
-const app = express() // Tworzenie instancji aplikacji Express
+const __dirname = path.resolve() 
+const app = express() 
 app.use(cors())
-app.use(express.json()) // Middleware obsługi danych w formacie JSON
-app.use(cookieParser()) // Middleware obsługi ciasteczek
+app.use(express.json()) 
+app.use(cookieParser()) 
 app.use(bodyParser.json())
-
-//Routery
 app.get('/', (req, res) => {
 	res.send('Strona główna')
 })
@@ -52,7 +48,6 @@ app.post('/api/email', async (req, res) => {
 			pass: process.env.PASS_SECRET,
 		},
 	})
-
 	const options = {
 		from: `${formData.name} <${formData.email}>`,
 		to: process.env.EMAIL_SECRET,
@@ -60,8 +55,7 @@ app.post('/api/email', async (req, res) => {
 		text: `
         Wiadomość od: ${formData.name} <${formData.email}>
         Temat: ${subject}
-        Treść wiadomości: ${cleanedMessage}
-    `,
+        Treść wiadomości: ${cleanedMessage}`,
 	}
 
 	transporter.sendMail(options, function (error, info) {
@@ -81,10 +75,8 @@ app.use('/api/kalendarz', terminRoutes)
 app.use('/api/kalendarz', sprawdzTerminRoutes)
 app.use('/api/komentarz', commentRoutes)
 app.use('/api/obraz', obrazRoutes)
-//Dostęp do statycznych plików w folderze 'client/dist' jako ścieżka podstawowa
 app.use(express.static(path.join(__dirname, '/client/dist')))
 app.use(express.static(path.join(__dirname, 'client')))
-// Obsługa zapytania GET na wszystkich trasach ('*')
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
 })
