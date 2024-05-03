@@ -23,12 +23,15 @@ mongoose
 	.catch(err => {
 		console.log(err)
 	})
-const __dirname = path.resolve() 
-const app = express() 
+const __dirname = path.resolve()
+const app = express()
 app.use(cors())
-app.use(express.json()) 
-app.use(cookieParser()) 
+app.use(express.json())
+app.use(cookieParser())
 app.use(bodyParser.json())
+app.listen(3000, () => {
+	console.log('Server działa na porcie:3000')
+})
 app.get('/', (req, res) => {
 	res.send('Strona główna')
 })
@@ -76,12 +79,9 @@ app.use('/api/kalendarz', sprawdzTerminRoutes)
 app.use('/api/komentarz', commentRoutes)
 app.use('/api/obraz', obrazRoutes)
 app.use(express.static(path.join(__dirname, '/client/dist')))
-app.use(express.static(path.join(__dirname, 'client')))
+// app.use(express.static(path.join(__dirname, 'client')))
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
-})
-app.listen(3000, () => {
-	console.log('Server działa na porcie:3000')
 })
 // Middleware obsługi błędów
 app.use((err, req, res, next) => {
