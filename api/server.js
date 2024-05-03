@@ -32,9 +32,6 @@ app.use(bodyParser.json())
 app.listen(3000, () => {
 	console.log('Server działa na porcie:3000')
 })
-app.get('/', (req, res) => {
-	res.send('Strona główna')
-})
 //Poczta
 app.post('/api/email', async (req, res) => {
 	const { from, to, subject, message } = req.body
