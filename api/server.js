@@ -78,11 +78,11 @@ app.use('/api/kalendarz', terminRoutes)
 app.use('/api/kalendarz', sprawdzTerminRoutes)
 app.use('/api/komentarz', commentRoutes)
 app.use('/api/obraz', obrazRoutes)
-app.use(express.static(path.join(__dirname, '/client/dist')))
-// app.use(express.static(path.join(__dirname, 'client')))
+// app.use(express.static(path.join(__dirname, '/client/dist')))
+app.use(express.static(path.join(__dirname, 'client')))
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
-})
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 // Middleware obsługi błędów
 app.use((err, req, res, next) => {
 	console.error(err)
