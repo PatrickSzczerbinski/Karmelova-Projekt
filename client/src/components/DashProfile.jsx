@@ -113,7 +113,8 @@ console.log('currentUser:', currentUser);
 				setSuccess('Profil użytkownika został pomyślnie zaktualizowany')
 				setTimeout(() => {
 					setSuccess(null)
-				}, 4000)
+					window.location.reload()
+				}, 2000)
 			}
 		} catch (error) {
 			dispatch(updateFailure(error.message))
@@ -186,7 +187,7 @@ console.log('currentUser:', currentUser);
 					type='text'
 					id='username'
 					placeholder='Nazwa Użytkownika'
-					defaultValue={currentUser.username}
+					// defaultValue={currentUser.username}
 					onChange={handleChange}
 				/>
 				<TextInput type='password' id='password' placeholder='Hasło' onChange={handleChange} />
