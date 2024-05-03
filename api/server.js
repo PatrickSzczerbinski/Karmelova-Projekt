@@ -29,8 +29,8 @@ app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
 app.use(bodyParser.json())
-app.listen(5000, () => {
-	console.log('Server działa na porcie:5000')
+app.listen(3000, () => {
+	console.log('Server działa na porcie:3000')
 })
 app.get('/', (req, res) => {
 	res.send('Strona główna')
