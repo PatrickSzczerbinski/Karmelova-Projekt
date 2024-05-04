@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import { errorHandler } from '../utils/error.js'
 
 export const rejestracja = async (req, res, next) => {
-	const { username, email, password } = req.body 
+	const { username, email, password } = req.body
 
 	if (!username || !email || !password || username === '' || email === '' || password === '') {
 		next(errorHandler(400, 'Wszystkie pola są wymagane'))
@@ -16,7 +16,7 @@ export const rejestracja = async (req, res, next) => {
 		if (req.body.username.indexOf(' ') !== -1) {
 			return next(errorHandler(400, 'Nazwa użytkownika nie może zawierać spacji'))
 		}
-		if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
+		if (!req.body.username.match(/^[a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$/u)) {
 			return next(errorHandler(400, 'Nazwa użytkownika może zawierać tylko litery i liczby'))
 		}
 	}
@@ -30,6 +30,10 @@ export const rejestracja = async (req, res, next) => {
 	if (existingUser) {
 		return next(errorHandler(400, 'Taki użytkownik już istnieje'))
 	}
+	const existingEmail = await User.findOne({ email: req.body.email })
+	if (existingEmail) {
+		return next(errorHandler(400, 'Ten adres e-mail już posiada konto'))
+	}
 	//Hasz na hasło za pomocą bcryptjs
 	const hashedPassword = bcryptjs.hashSync(password, 10)
 	const newUser = new User({
@@ -42,13 +46,13 @@ export const rejestracja = async (req, res, next) => {
 		// Zapis nowego usera w bazie
 		await newUser.save()
 		res.json({
-			msg: "Rejestracja pomyślna",
+			msg: 'Rejestracja pomyślna',
 			token,
 			newUser: {
 				...newUser._doc,
-				password: "",
-			  },
-		  });
+				password: '',
+			},
+		})
 	} catch (error) {
 		next(error)
 	}
@@ -74,29 +78,29 @@ export const logowanie = async (req, res, next) => {
 		const token = jwt.sign({ id: validUser._id, isAdmin: validUser.isAdmin }, process.env.JWT_SECRET)
 		// Usuwa hasło z obiektu użytkownika przed wysłaniem odpowiedzi
 		const { password: pass, ...rest } = validUser._doc
-		
-	// 	res
-    // .status(200)
-    // .cookie('access_token', token, {
-    //   httpOnly: true,
-    // })
-    // .json({
-    //   msg: "Logowanie pomyślne!",
-    //   token,
-    //   validUser: {
-    //     ...validUser._doc,
-    //     password: "",
-    //   },
-    // });
-	res
-	.status(200)
-	.cookie('access_token', token, {
-	  httpOnly: true,
-	})
-	.json({
-		msg: "Logowanie pomyślne!",
-		...validUser._doc,
-	});
+
+		// 	res
+		// .status(200)
+		// .cookie('access_token', token, {
+		//   httpOnly: true,
+		// })
+		// .json({
+		//   msg: "Logowanie pomyślne!",
+		//   token,
+		//   validUser: {
+		//     ...validUser._doc,
+		//     password: "",
+		//   },
+		// });
+		res
+			.status(200)
+			.cookie('access_token', token, {
+				httpOnly: true,
+			})
+			.json({
+				msg: 'Logowanie pomyślne!',
+				...validUser._doc,
+			})
 	} catch (error) {
 		next(error)
 	}
