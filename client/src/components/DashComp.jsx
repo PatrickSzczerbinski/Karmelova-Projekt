@@ -88,8 +88,8 @@ export default function DashComp() {
 	}, [currentUser])
 	return (
 		<div className='md:mx-auto '>
-			<div className='flex  m-4'>
-				<div className='flex flex-col m-4 p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+			<div className='grid grid-cols-1 mx-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 '>
+				<div className='flex flex-col m-4 p-2 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
 					<div className='flex justify-between'>
 						<div className=''>
 							<h3 className='text-gray-500 text-md uppercase'>Całkowita liczba użytkowników</h3>
@@ -110,7 +110,7 @@ export default function DashComp() {
 						</Link>
 					</div>
 				</div>
-				<div className='flex flex-col m-4 p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+				<div className='flex flex-col m-4 p-2 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
 					<div className='flex justify-between'>
 						<div className=''>
 							<h3 className='text-gray-500 text-md uppercase'>Całkowita liczba komentarzy</h3>
@@ -131,7 +131,7 @@ export default function DashComp() {
 						</Link>
 					</div>
 				</div>
-				<div className='flex flex-col m-4 p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+				<div className='flex flex-col m-4 p-2 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
 					<div className='flex justify-between'>
 						<div className=''>
 							<h3 className='text-gray-500 text-md uppercase'>
@@ -141,7 +141,7 @@ export default function DashComp() {
 						</div>
 						<BsFilePost className='bg-lime-600  text-white rounded-full text-5xl p-3 shadow-lg' />
 					</div>
-					<div className='flex  gap-2 text-sm'>
+					<div className='flex gap-2 text-sm'>
 						<span className='text-green-500 flex items-center'>
 							<HiArrowNarrowUp />
 							{ostatniMiesiacPosty}
@@ -154,7 +154,7 @@ export default function DashComp() {
 						</Link>
 					</div>
 				</div>
-				<div className='flex flex-col m-4 p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
+				<div className='flex flex-col m-4 p-2 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md'>
 					<div className='flex justify-between'>
 						<div className=''>
 							<h3 className='text-gray-500 text-md uppercase'>
